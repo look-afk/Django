@@ -1,0 +1,70 @@
+# Python/Django .gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Django local DBs
+*.sqlite3
+*.sqlite3-journal
+db.sqlite3
+MyLocalDB.session.sql
+
+# Media & static (if generated)
+media/
+staticfiles/
+static/
+
+# Pytest, coverage, mypy
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.pytype/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# dotenv
+.env
+.env.*
+
+# Python packaging
+*.egg
+*.egg-info
+*.eggs
+*.whl
+
+# Celery
+celerybeat-schedule
+
+# Secrets/sensitive
+secrets.json

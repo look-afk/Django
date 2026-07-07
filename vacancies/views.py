@@ -1,8 +1,9 @@
 import json
+from os import name
 from django.http import HttpResponse,JsonResponse
 from django.views.generic import DetailView,ListView,CreateView,UpdateView,DeleteView
 from django.views import View
-from .models import Vacancy
+from .models import Skills, Vacancy
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 # Create your views here.
@@ -92,7 +93,7 @@ class VacancyUpdateView(UpdateView):
      def get(self, request, *args, **kwargs):
             return JsonResponse({"error": "Method not allowed"}, status=405)
 
-     def post(self,request,*args,**kwargs):
+     def patch(self,request,*args,**kwargs):
             super().get(request,*args,**kwargs)
             vacancy_data = json.loads(request.body)
             
@@ -100,22 +101,33 @@ class VacancyUpdateView(UpdateView):
             self.object.text = vacancy_data["text"]
             self.object.status = vacancy_data["status"]
             
+
+            for skills in vacancy_data["skills"]:
+                try:
+                    skill_obj = Skills.objects.get(name=skills)
+                except Skills.DoesNotExist:
+                    return JsonResponse({"Error: skill not found! :("}, status = 405)
+                self.object.skills.add(skill_obj)
+            
             self.object.save()
+            
             return JsonResponse({
                 "id": self.object.id,
                 "text": self.object.text,
                 "slug": self.object.slug,
                 "status": self.object.status,
                 "created": self.object.created,
-                "user": self.object.user_id,
+                "user": list(self.object.skills.all().values_list("name",flat = True)),
+                
+            },safe=False)
 
-            })
-     
+@method_decorator(csrf_exempt,name="dispatch")     
 class VacancyDeleteView(DeleteView):
      model = Vacancy
      success_url = "/"
 
      def delete(self,request,*args,**kwargs):
-          super.delete(request,*args,**kwargs)
+         self.object = self.get_object()
+         self.object.delete()
 
-          return JsonResponse({"status":"ok"},status=200)
+         return JsonResponse({"status":"ok"},status=200)
