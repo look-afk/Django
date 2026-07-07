@@ -24,4 +24,4 @@ urlpatterns = [
     path('hello/', views.hello),
     path('vacancy/', include('vacancies.urls')),
 
-]
+]+ static
