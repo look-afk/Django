@@ -1,8 +1,14 @@
 {
     "python.defaultInterpreterPath": "${workspaceFolder}/venv/Scripts/python.exe",
-    "python.analysis.extraPaths": ["${workspaceFolder}"],
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/venv/Lib/site-packages"
+    ],
+    "python.analysis.indexing": true,
     "python.envFile": "${workspaceFolder}/.env",
     "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.useLibraryCodeForTypes": true,
     "sqltools.connections": [
         {
             "ssh": "Disabled",
