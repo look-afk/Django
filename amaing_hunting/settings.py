@@ -57,7 +57,7 @@ ROOT_URLCONF = 'amaing_hunting.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'amaing_hunting', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
